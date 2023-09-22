@@ -21,7 +21,5 @@ public class Coverage {
         public Coverage build(){
             return new Coverage(project);
         }
-
-
     }
 }

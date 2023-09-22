@@ -54,23 +54,129 @@ public class ReportParserTest {
     }
 
     @Test
-    public void generateForPresentDay() throws ParserConfigurationException, SAXException, IOException {
-        //clover_Jul27.xml
+    public void generateForSprint0() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
         ReportParser reportParser = new ReportParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_Jul27.xml"), reportParser);
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint0.xml"), reportParser);
         Coverage coverage = reportParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
                 )));
 
-        System.out.println(summaryReportForRoles.get(0).getBranchCoveragePercent());
-        System.out.println(summaryReportForRoles.get(0).getStatementCoveragePercent());
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
+    }
+
+    @Test
+    public void generateForSprint1() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
+        ReportParser reportParser = new ReportParser();
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint1.xml"), reportParser);
+        Coverage coverage = reportParser.getCoverage();
+
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+                new ArrayList<>(List.of(
+                        "digital-user-management.src.app.features.user-management.roles",
+                        "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
+                        "document-confirmation.src.app"
+                )));
+
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
+    }
+
+    @Test
+    public void generateForSprint2() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
+        ReportParser reportParser = new ReportParser();
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_aug14.xml"), reportParser);
+        Coverage coverage = reportParser.getCoverage();
+
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+                new ArrayList<>(List.of(
+                        "digital-user-management.src.app.features.user-management.roles",
+                        "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
+                        "document-confirmation.src.app"
+                )));
+
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
+    }
+
+    @Test
+    public void generateForSprint2Dot1() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
+        ReportParser reportParser = new ReportParser();
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint2.xml"), reportParser);
+        Coverage coverage = reportParser.getCoverage();
+
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+                new ArrayList<>(List.of(
+                        "digital-user-management.src.app.features.user-management.roles",
+                        "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
+                        "document-confirmation.src.app"
+                )));
+
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
+    }
+
+    @Test
+    public void generateForSprint3() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
+        ReportParser reportParser = new ReportParser();
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint3.xml"), reportParser);
+        Coverage coverage = reportParser.getCoverage();
+
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+                new ArrayList<>(List.of(
+                        "digital-user-management.src.app.features.user-management.roles",
+                        "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
+                        "document-confirmation.src.app"
+                )));
+
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
+    }
+
+    @Test
+    public void generateForSprint4() throws ParserConfigurationException, SAXException, IOException {
+        //clover_sprint1.xml
+        ReportParser reportParser = new ReportParser();
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint4.xml"), reportParser);
+        Coverage coverage = reportParser.getCoverage();
+
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+                new ArrayList<>(List.of(
+                        "digital-user-management.src.app.features.user-management.roles",
+                        "digital-user-management.src.app.features.user-management.signing-rules",
+                        "digital-user-management.src.app.features.user-management.users",
+                        "digital-user-management.src.app.features.user-management.visit",
+                        "document-confirmation.src.app"
+                )));
+
+        summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
 
 

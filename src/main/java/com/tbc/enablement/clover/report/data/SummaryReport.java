@@ -29,4 +29,8 @@ public class SummaryReport {
         return String.format("%.2f %%", coveragePercent);
     }
 
+    public String generateReport(){
+        return String.format("topic#%s branch#%s statements#%s", topic, getBranchCoveragePercent(), getStatementCoveragePercent());
+    }
+
 }
