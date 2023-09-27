@@ -18,7 +18,7 @@ public class Project {
         return codePackages;
     }
 
-    public List<SummaryReport> generateReportForPackages(List<String> packagePrefix){
+    public ProjectSummary generateReportForPackages(List<String> packagePrefix){
 
         List<SummaryReport> summaryReports = packagePrefix.stream().map(prefix -> {
             List<Metrics> metrices1 = codePackages
@@ -37,7 +37,8 @@ public class Project {
         StringBuilder stringBuilder = new StringBuilder();
         summaryReports.forEach(summaryReport -> stringBuilder.append(String.format("Package::%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
         System.out.printf("Project coverage::Branch::%s Statements::%s\n%s%n", projectReport.getBranchCoveragePercent(), projectReport.getStatementCoveragePercent(), stringBuilder);
-        return summaryReports;
+
+        return new ProjectSummary(projectReport, summaryReports);
 
     }
 

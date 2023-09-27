@@ -2,6 +2,7 @@ package com.tbc.enablement.clover.report.parser;
 
 import com.tbc.enablement.clover.report.data.CodePackage;
 import com.tbc.enablement.clover.report.data.Coverage;
+import com.tbc.enablement.clover.report.data.ProjectSummary;
 import com.tbc.enablement.clover.report.data.SummaryReport;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
@@ -41,16 +42,19 @@ public class ReportParserTest {
         assertEquals(rolesActionsPackage.get().getMetrics().getCoveredConditionals(), 61);
 
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        ProjectSummary projectSummary = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.signing-rules.components.rules-list",
                         "document-confirmation.src.app")));
 
-        assertEquals(summaryReportForRoles.get(0).getBranchCoveragePercent(),"0.00 %");
-        assertEquals(summaryReportForRoles.get(0).getStatementCoveragePercent(), "96.00 %");
+        assertEquals(projectSummary.getPacakgeReports().get(0).getBranchCoveragePercent(),"0.00 %");
+        assertEquals(projectSummary.getPacakgeReports().get(0).getStatementCoveragePercent(), "96.00 %");
 
-        assertEquals(summaryReportForRoles.get(1).getBranchCoveragePercent(), "64.00 %");
-        assertEquals(summaryReportForRoles.get(1).getStatementCoveragePercent(), "77.00 %");
+        assertEquals(projectSummary.getPacakgeReports().get(1).getBranchCoveragePercent(), "64.00 %");
+        assertEquals(projectSummary.getPacakgeReports().get(1).getStatementCoveragePercent(), "77.00 %");
+
+        assertEquals(projectSummary.getProjectMetrics().getBranchCoveragePercent(), "69.00 %");
+        assertEquals(projectSummary.getProjectMetrics().getStatementCoveragePercent(), "80.00 %");
     }
 
     @Test
@@ -69,7 +73,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -90,7 +94,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -111,7 +115,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -132,7 +136,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -153,7 +157,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -174,7 +178,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -195,7 +199,7 @@ public class ReportParserTest {
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                )));
+                ))).getPacakgeReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
