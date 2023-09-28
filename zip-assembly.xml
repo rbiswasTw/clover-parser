@@ -6,6 +6,11 @@
     <formats>
         <format>zip</format>
     </formats>
+    <fileSets>
+        <fileSet>
+            <directory>workspace</directory>
+        </fileSet>
+    </fileSets>
     <files>
         <file>
             <source>target/clover-parser.jar</source>
