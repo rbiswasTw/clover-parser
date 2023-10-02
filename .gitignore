@@ -1,3 +1,5 @@
 .idea
 clover-parser.iml
-reportWorkArea
+/reportWorkArea
+/cl-wa-vol
+/cobertura-wa-vol

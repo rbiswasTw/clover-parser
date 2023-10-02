@@ -1,7 +1,7 @@
 package com.thoughtworks.enablement.coverage.report.process;
 
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -23,12 +23,10 @@ public class ReportGeneratorTest {
 
     private final String WORK_DIR = String.format("%s/%s", System.getProperty("user.dir"), "reportWorkArea");
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
+        cleanWorkDirectory();
         File workAreaDirectory = new File(WORK_DIR);
-        if (workAreaDirectory.exists()) {
-            workAreaDirectory.delete();
-        }
         workAreaDirectory.mkdir();
     }
 
@@ -55,8 +53,35 @@ public class ReportGeneratorTest {
         assertEquals(Files.readAllLines(outputFile.toPath()).size(), 14);
     }
 
+    @Test
+    public void shouldReadXmlFilesAndGenerateOutputForCoberturaCoverage() throws IOException {
+        File workAreaDirectory = new File(WORK_DIR);
+        List.of("Cobertura.xml","Cobertura-2.xml", "report.properties")
+                .forEach(new Consumer<>() {
+                    @Override
+                    public void accept(String s) {
+                        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(String.format("%s/%s/%s", "report-generator","cobertura", s))) {
+                            assert resourceAsStream != null;
+                            Files.copy(resourceAsStream, Path.of(workAreaDirectory.getPath(), s), StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        ReportGenerator reportGenerator = new ReportGenerator();
+        reportGenerator.generateComprehensiveReport(workAreaDirectory.getName());
+        File outputFile = new File(String.format("%s/%s", WORK_DIR, "output.txt"));
+        assertTrue(outputFile.exists());
+        assertEquals(Files.readAllLines(outputFile.toPath()).size(), 12);
+    }
+
     @AfterClass
     public void cleanUp() {
+        cleanWorkDirectory();
+    }
+
+    private void cleanWorkDirectory() {
         File file = new File(WORK_DIR);
         if (file.exists() && file.isDirectory()) {
             Arrays.stream(Objects.requireNonNull(file.listFiles())).forEach(File::delete);

@@ -29,7 +29,7 @@ public class CoberturaParserTest {
         CoberturaParser coberturaParser = new CoberturaParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("Cobertura.xml"), coberturaParser);
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("report-generator/cobertura/Cobertura.xml"), coberturaParser);
         Coverage coverage = coberturaParser.getCoverage();
         assertNotNull(coverage);
         assertEquals(coverage.getProject().getMetrics().getStatements(), 3833);

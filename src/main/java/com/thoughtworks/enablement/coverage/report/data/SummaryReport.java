@@ -30,7 +30,7 @@ public class SummaryReport {
     }
 
     public String generateReport(){
-        return String.format("topic#%s branch#%s statements#%s", topic, getBranchCoveragePercent(), getStatementCoveragePercent());
+        return String.format("#%s## ##branch:%s## ##statements:%s##", topic, getBranchCoveragePercent(), getStatementCoveragePercent());
     }
 
 }

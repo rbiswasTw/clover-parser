@@ -7,15 +7,17 @@ import com.thoughtworks.enablement.coverage.report.parser.cobertura.CoberturaPar
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.FileInputStream;
+import java.nio.file.Path;
 
+@SuppressWarnings("unused")
 public enum ParserDictionary {
 
     Clover{
         @Override
-        public Coverage generateCoverageReport(String fileName) {
+        public Coverage generateCoverageReport(Path filePath) {
             CloverParser cloverParser = new CloverParser();
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            try (FileInputStream fileInputStream = new FileInputStream(fileName)){
+            try (FileInputStream fileInputStream = new FileInputStream(filePath.toFile())){
                 SAXParser saxParser;
                 saxParser = saxParserFactory.newSAXParser();
                 saxParser.parse(fileInputStream, cloverParser);
@@ -27,10 +29,10 @@ public enum ParserDictionary {
     },
     Cobertura {
         @Override
-        public Coverage generateCoverageReport(String fileName) {
+        public Coverage generateCoverageReport(Path filePath) {
             CoberturaParser coberturaParser = new CoberturaParser();
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            try (FileInputStream fileInputStream = new FileInputStream(fileName)){
+            try (FileInputStream fileInputStream = new FileInputStream(filePath.toFile())){
                 SAXParser saxParser;
                 saxParser = saxParserFactory.newSAXParser();
                 saxParser.parse(fileInputStream, coberturaParser);
@@ -41,5 +43,5 @@ public enum ParserDictionary {
         }
     };
 
-    public abstract Coverage generateCoverageReport(String fileName);
+    public abstract Coverage generateCoverageReport(Path filePath);
 }

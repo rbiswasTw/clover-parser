@@ -14,6 +14,10 @@ public class ProjectSummary {
         this.namespaceReports = namespaceReports;
     }
 
+    public List<SummaryReport> getNamespaceReports() {
+        return namespaceReports;
+    }
+
     public List<SummaryReport> getPackageReports() {
         return packageReports;
     }

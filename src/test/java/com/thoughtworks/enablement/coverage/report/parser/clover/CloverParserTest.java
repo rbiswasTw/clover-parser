@@ -12,12 +12,14 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.*;
 
 
+@SuppressWarnings("unchecked")
 public class CloverParserTest {
 
     @Test
@@ -42,10 +44,10 @@ public class CloverParserTest {
         assertEquals(rolesActionsPackage.get().getMetrics().getCoveredConditionals(), 61);
 
 
-        ProjectSummary projectSummary = coverage.getProject().generateReportForPackages(
+        ProjectSummary projectSummary = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.signing-rules.components.rules-list",
-                        "document-confirmation.src.app")));
+                        "document-confirmation.src.app")), Collections.EMPTY_LIST);
 
         assertEquals(projectSummary.getPackageReports().get(0).getBranchCoveragePercent(),"0.00 %");
         assertEquals(projectSummary.getPackageReports().get(0).getStatementCoveragePercent(), "96.00 %");
@@ -66,14 +68,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint0.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -87,14 +89,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint1.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )) , Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -108,14 +110,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_aug14.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -129,14 +131,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint2.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -150,14 +152,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint3.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -171,14 +173,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint4.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
@@ -192,14 +194,14 @@ public class CloverParserTest {
         saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint5.xml"), cloverParser);
         Coverage coverage = cloverParser.getCoverage();
 
-        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
+        List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReport(
                 new ArrayList<>(List.of(
                         "digital-user-management.src.app.features.user-management.roles",
                         "digital-user-management.src.app.features.user-management.signing-rules",
                         "digital-user-management.src.app.features.user-management.users",
                         "digital-user-management.src.app.features.user-management.visit",
                         "document-confirmation.src.app"
-                ))).getPackageReports();
+                )), Collections.EMPTY_LIST).getPackageReports();
 
         summaryReportForRoles.forEach(SummaryReport::generateReport);
     }
