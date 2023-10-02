@@ -33,13 +33,13 @@ public class ReportGeneratorTest {
     }
 
     @Test
-    public void shouldReadXmlFilesAndGenerateOutput() throws IOException {
+    public void shouldReadXmlFilesAndGenerateOutputForCloverCoverage() throws IOException {
         File workAreaDirectory = new File(WORK_DIR);
-        List.of("clover1.Xml", "clover2.xml", "clover3.NotXml", "pattern.txt")
+        List.of("clover1.Xml", "clover2.xml", "clover3.NotXml", "report.properties")
                 .forEach(new Consumer<>() {
                     @Override
                     public void accept(String s) {
-                        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(String.format("%s/%s", "report-generator", s))) {
+                        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(String.format("%s/%s/%s", "report-generator","clover", s))) {
                             assert resourceAsStream != null;
                             Files.copy(resourceAsStream, Path.of(workAreaDirectory.getPath(), s), StandardCopyOption.REPLACE_EXISTING);
                         } catch (IOException e) {

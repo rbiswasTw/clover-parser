@@ -2,6 +2,7 @@ package com.thoughtworks.enablement.coverage.report.process;
 
 import com.thoughtworks.enablement.coverage.report.data.FileSummary;
 import com.thoughtworks.enablement.coverage.report.data.SummaryReport;
+import com.thoughtworks.enablement.coverage.report.parser.ParserDictionary;
 import com.thoughtworks.enablement.coverage.report.parser.clover.CloverParser;
 
 import javax.xml.parsers.SAXParser;
@@ -23,12 +24,16 @@ public class ReportGenerator {
         if (!file.isDirectory()) {
             throw new RuntimeException("location is not a directory");
         }
-        File patternFile = new File(String.format("%s/%s", filesLocation, "pattern.txt"));
-        if (!patternFile.exists()) {
+        File configurationFile = new File(String.format("%s/%s", filesLocation, "report.properties"));
+        if (!configurationFile.exists()) {
             throw new RuntimeException("Patterns not found");
         }
-        List<String> patterns = Files.readAllLines(patternFile.toPath())
-                .stream().filter(s -> !s.isEmpty()).map(String::trim).collect(Collectors.toList());
+        Properties configuration = new Properties();
+        try(FileInputStream fileInputStream = new FileInputStream(configurationFile)){
+            configuration.load(fileInputStream);
+        }
+        List<String> packagePatterns = Arrays.stream(configuration.getProperty("packagePrefixes").split(",")).collect(Collectors.toList());
+
         List<String> projectSummaryReport = Arrays.stream(Objects.requireNonNull(
                         file.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"))))
                 .map(file1 -> {
@@ -39,7 +44,7 @@ public class ReportGenerator {
                         saxParser = saxParserFactory.newSAXParser();
                         saxParser.parse(fileInputStream, cloverParser);
                         return new FileSummary(file1.getName(),
-                                cloverParser.getCoverage().getProject().generateReportForPackages(patterns));
+                                cloverParser.getCoverage().getProject().generateReportForPackages(packagePatterns));
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to parse XML", e);
                     }
@@ -48,7 +53,7 @@ public class ReportGenerator {
                     List<String> reports = new LinkedList<>();
                     reports.add(String.format("------Report start for file::%s---", fileSummary.getFileName()));
                     reports.add(fileSummary.getProjectSummary().getProjectMetrics().generateReport());
-                    reports.addAll(fileSummary.getProjectSummary().getPacakgeReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
+                    reports.addAll(fileSummary.getProjectSummary().getPackageReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
                     return reports;
                 })
                 .flatMap((Function<List<String>, Stream<String>>) Collection::stream)

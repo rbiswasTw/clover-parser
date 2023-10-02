@@ -5,18 +5,21 @@ import java.util.List;
 public class ProjectSummary {
 
     private final SummaryReport projectMetrics;
-    private final List<SummaryReport> pacakgeReports;
+    private final List<SummaryReport> packageReports;
+    private final List<SummaryReport> namespaceReports;
 
-    public ProjectSummary(SummaryReport projectMetrics, List<SummaryReport> pacakgeReports) {
+    public ProjectSummary(SummaryReport projectMetrics, List<SummaryReport> packageReports, List<SummaryReport> namespaceReports) {
         this.projectMetrics = projectMetrics;
-        this.pacakgeReports = pacakgeReports;
+        this.packageReports = packageReports;
+        this.namespaceReports = namespaceReports;
     }
 
-    public List<SummaryReport> getPacakgeReports() {
-        return pacakgeReports;
+    public List<SummaryReport> getPackageReports() {
+        return packageReports;
     }
 
     public SummaryReport getProjectMetrics() {
         return projectMetrics;
     }
+
 }

@@ -1,9 +1,6 @@
 package com.thoughtworks.enablement.coverage.report.data;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,36 +43,57 @@ public class Project {
         summaryReports.forEach(summaryReport -> stringBuilder.append(String.format("Package::%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
         System.out.printf("Project coverage::Branch::%s Statements::%s\n%s%n", projectReport.getBranchCoveragePercent(), projectReport.getStatementCoveragePercent(), stringBuilder);
 
-        return new ProjectSummary(projectReport, summaryReports);
+        //noinspection unchecked
+        return new ProjectSummary(projectReport, summaryReports, Collections.EMPTY_LIST);
 
     }
 
-    public ProjectSummary generateReportForNamespaces(List<String> classNamespacePrefix){
-        final Metrics.MetricBuilder metricBuilder = new Metrics.MetricBuilder();
-        List<SummaryReport> summaryReports = classNamespacePrefix.stream().map(prefix -> {
-            codePackages
-                    .stream()
-                    .map(CodePackage::getClassMetrics)
-                    .filter(Objects::nonNull)
-                    .flatMap((Function<List<ClassMetric>, Stream<ClassMetric>>) Collection::stream)
-                    .forEach(classMetric -> {
-                        metricBuilder.incrementStatements(classMetric.getMetrics().getStatements());
-                        metricBuilder.incrementCoveredStatements(classMetric.getMetrics().getCoveredStatements());
-                        metricBuilder.incrementBranches(classMetric.getMetrics().getConditionals());
-                        metricBuilder.incrementCoveredBranches(classMetric.getMetrics().getCoveredConditionals());
-                    });
-            Metrics metrics = metricBuilder.build();
-            return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), prefix);
-        }).collect(Collectors.toList());
 
-        SummaryReport projectReport = new SummaryReport(this.metrics.getStatements(), this.metrics.getCoveredStatements(), this.metrics.getConditionals(), this.metrics.getCoveredConditionals(), "Project overall");
+    public ProjectSummary generateReport(List<String> packageNamePrefixes, List<String> classNamespacePrefixes){
 
-        StringBuilder stringBuilder = new StringBuilder();
-        summaryReports.forEach(summaryReport -> stringBuilder.append(String.format("Package::%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
-        System.out.printf("Project coverage::Branch::%s Statements::%s\n%s%n", projectReport.getBranchCoveragePercent(), projectReport.getStatementCoveragePercent(), stringBuilder);
+        List<ClassMetric> classMetrices = this.codePackages.stream()
+                .map(CodePackage::getClassMetrics)
+                .filter(Objects::nonNull)
+                .flatMap((Function<List<ClassMetric>, Stream<ClassMetric>>) Collection::stream)
+                .collect(Collectors.toList());
 
-        return new ProjectSummary(projectReport, summaryReports);
+        List<SummaryReport> namespaceReport = classNamespacePrefixes
+                .stream()
+                .map(namespace -> {
+                    final Metrics.MetricBuilder metricBuilder = new Metrics.MetricBuilder();
+                    classMetrices.stream()
+                            .filter(classMetric -> classMetric.getName().startsWith(namespace))
+                            .forEach(classMetric -> {
+                                metricBuilder.incrementStatements(classMetric.getMetrics().getStatements());
+                                metricBuilder.incrementCoveredStatements(classMetric.getMetrics().getCoveredStatements());
+                                metricBuilder.incrementBranches(classMetric.getMetrics().getConditionals());
+                                metricBuilder.incrementCoveredBranches(classMetric.getMetrics().getCoveredConditionals());
+                            });
+                    Metrics metrics = metricBuilder.build();
+                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), namespace);
+                })
+                .collect(Collectors.toList());
 
+        List<SummaryReport> packageReport = packageNamePrefixes
+                .stream()
+                .map(packageName -> {
+                    Metrics.MetricBuilder metricBuilder = new Metrics.MetricBuilder();
+                    codePackages.stream()
+                            .filter(codePackage -> codePackage.getName().startsWith(packageName))
+                            .forEach(codePackage -> {
+                                metricBuilder.incrementStatements(codePackage.getMetrics().getStatements());
+                                metricBuilder.incrementCoveredStatements(codePackage.getMetrics().getCoveredStatements());
+                                metricBuilder.incrementBranches(codePackage.getMetrics().getConditionals());
+                                metricBuilder.incrementCoveredBranches(codePackage.getMetrics().getCoveredConditionals());
+                            });
+                    Metrics metrics = metricBuilder.build();
+                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), packageName);
+                })
+                .collect(Collectors.toList());
+
+        SummaryReport projectReport = new SummaryReport(this.metrics.getStatements(), this.metrics.getCoveredStatements(), this.metrics.getConditionals(), this.metrics.getCoveredConditionals(), "Repository overall");
+
+        return new ProjectSummary(projectReport, packageReport, namespaceReport);
     }
 
 
