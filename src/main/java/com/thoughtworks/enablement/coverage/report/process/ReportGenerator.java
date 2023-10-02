@@ -1,8 +1,8 @@
-package com.tbc.enablement.clover.report.process;
+package com.thoughtworks.enablement.coverage.report.process;
 
-import com.tbc.enablement.clover.report.data.FileSummary;
-import com.tbc.enablement.clover.report.data.SummaryReport;
-import com.tbc.enablement.clover.report.parser.ReportParser;
+import com.thoughtworks.enablement.coverage.report.data.FileSummary;
+import com.thoughtworks.enablement.coverage.report.data.SummaryReport;
+import com.thoughtworks.enablement.coverage.report.parser.clover.CloverParser;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -32,14 +32,14 @@ public class ReportGenerator {
         List<String> projectSummaryReport = Arrays.stream(Objects.requireNonNull(
                         file.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"))))
                 .map(file1 -> {
-                    ReportParser reportParser = new ReportParser();
+                    CloverParser cloverParser = new CloverParser();
                     SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
                     try (FileInputStream fileInputStream = new FileInputStream(file1)){
                         SAXParser saxParser;
                         saxParser = saxParserFactory.newSAXParser();
-                        saxParser.parse(fileInputStream, reportParser);
+                        saxParser.parse(fileInputStream, cloverParser);
                         return new FileSummary(file1.getName(),
-                                reportParser.getCoverage().getProject().generateReportForPackages(patterns));
+                                cloverParser.getCoverage().getProject().generateReportForPackages(patterns));
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to parse XML", e);
                     }

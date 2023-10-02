@@ -1,13 +1,13 @@
-package com.tbc.enablement.clover.report.parser;
+package com.thoughtworks.enablement.coverage.report.parser.clover;
 
-import com.tbc.enablement.clover.report.data.CodePackage;
-import com.tbc.enablement.clover.report.data.Coverage;
-import com.tbc.enablement.clover.report.data.Metrics;
-import com.tbc.enablement.clover.report.data.Project;
+import com.thoughtworks.enablement.coverage.report.data.CodePackage;
+import com.thoughtworks.enablement.coverage.report.data.Coverage;
+import com.thoughtworks.enablement.coverage.report.data.Metrics;
+import com.thoughtworks.enablement.coverage.report.data.Project;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class ReportParser extends DefaultHandler {
+public class CloverParser extends DefaultHandler {
 
     private final Coverage.CoverageBuilder coverageBuilder = new Coverage.CoverageBuilder();
     private final Project.ProjectBuilder projectBuilder = new Project.ProjectBuilder();
@@ -49,10 +49,10 @@ public class ReportParser extends DefaultHandler {
                 this.coverage = coverageBuilder.build();
                 break;
             case "project":
-                coverageBuilder.withProject(projectBuilder.build());
+                coverageBuilder.withProject(projectBuilder.build(false));
                 break;
             case "package":
-                projectBuilder.withCodePackage(codePackageBuilder.build());
+                projectBuilder.withCodePackage(codePackageBuilder.build(false));
                 break;
         }
     }

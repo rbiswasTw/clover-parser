@@ -1,6 +1,6 @@
-package com.tbc.enablement.clover.report;
+package com.thoughtworks.enablement.coverage.report;
 
-import com.tbc.enablement.clover.report.process.ReportGenerator;
+import com.thoughtworks.enablement.coverage.report.process.ReportGenerator;
 
 import java.io.IOException;
 

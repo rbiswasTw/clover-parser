@@ -1,4 +1,4 @@
-package com.tbc.enablement.clover.report.parser;
+package com.thoughtworks.enablement.coverage.report.parser.clover;
 
 public enum Tags {
     Project,

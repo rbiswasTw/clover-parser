@@ -1,4 +1,4 @@
-package com.tbc.enablement.clover.report.process;
+package com.thoughtworks.enablement.coverage.report.process;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;

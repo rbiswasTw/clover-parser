@@ -1,4 +1,4 @@
-package com.tbc.enablement.clover.report.data;
+package com.thoughtworks.enablement.coverage.report.data;
 
 public class FileSummary {
     private final String fileName;

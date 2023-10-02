@@ -1,9 +1,9 @@
-package com.tbc.enablement.clover.report.parser;
+package com.thoughtworks.enablement.coverage.report.parser.clover;
 
-import com.tbc.enablement.clover.report.data.CodePackage;
-import com.tbc.enablement.clover.report.data.Coverage;
-import com.tbc.enablement.clover.report.data.ProjectSummary;
-import com.tbc.enablement.clover.report.data.SummaryReport;
+import com.thoughtworks.enablement.coverage.report.data.CodePackage;
+import com.thoughtworks.enablement.coverage.report.data.Coverage;
+import com.thoughtworks.enablement.coverage.report.data.ProjectSummary;
+import com.thoughtworks.enablement.coverage.report.data.SummaryReport;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
@@ -18,15 +18,15 @@ import java.util.Optional;
 import static org.testng.Assert.*;
 
 
-public class ReportParserTest {
+public class CloverParserTest {
 
     @Test
     public void shouldReadAndGenerateCoverageFromCloverXml() throws ParserConfigurationException, SAXException, IOException {
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover2.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover2.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
         assertNotNull(coverage);
         assertNotNull(coverage.getProject());
         assertEquals(58, coverage.getProject().getCodePackages().size());
@@ -60,11 +60,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint0() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint0.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint0.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -81,11 +81,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint1() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint1.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint1.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -102,11 +102,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint2() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_aug14.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_aug14.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -123,11 +123,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint2Dot1() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint2.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint2.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -144,11 +144,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint3() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint3.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint3.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -165,11 +165,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint4() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint4.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint4.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(
@@ -186,11 +186,11 @@ public class ReportParserTest {
     @Test
     public void generateForSprint5() throws ParserConfigurationException, SAXException, IOException {
         //clover_sprint1.xml
-        ReportParser reportParser = new ReportParser();
+        CloverParser cloverParser = new CloverParser();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint5.xml"), reportParser);
-        Coverage coverage = reportParser.getCoverage();
+        saxParser.parse(getClass().getClassLoader().getResourceAsStream("clover_sprint5.xml"), cloverParser);
+        Coverage coverage = cloverParser.getCoverage();
 
         List<SummaryReport> summaryReportForRoles = coverage.getProject().generateReportForPackages(
                 new ArrayList<>(List.of(

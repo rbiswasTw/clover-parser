@@ -12,4 +12,6 @@ RUN apk update && apk upgrade
 RUN apk add openjdk11
 WORKDIR /app
 COPY --from=buildContainer /app/target/clover-parser.jar .
+COPY execution.sh .
+RUN chmod 777 execution.sh
 CMD ["/bin/ash", "-c", "java -jar clover-parser.jar;"]
