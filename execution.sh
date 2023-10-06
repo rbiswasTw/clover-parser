@@ -1,2 +1,2 @@
 #!/bin/ash
-java -jar clover-parser.jar
+java -jar coverage-parser.jar
