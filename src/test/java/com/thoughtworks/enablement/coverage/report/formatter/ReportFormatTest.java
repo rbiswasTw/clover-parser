@@ -64,7 +64,7 @@ public class ReportFormatTest {
     }
 
     private List<FileSummary> generateFileSummaries() {
-        List<FileSummary> fileSummaryList = Arrays.asList(
+        return Arrays.asList(
                 new FileSummary("File1.txt", new ProjectSummary(
                         new SummaryReport(10, 10, 5, 10, "Project overall"),
                         Arrays.asList(new SummaryReport(1,2,1,2,"pkg-abc"),
@@ -80,6 +80,5 @@ public class ReportFormatTest {
                                 new SummaryReport(1,2,1,2,"nsp-def"))
                 ))
         );
-        return fileSummaryList;
     }
 }
