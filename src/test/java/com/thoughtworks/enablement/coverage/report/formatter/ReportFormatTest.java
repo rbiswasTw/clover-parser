@@ -20,22 +20,7 @@ public class ReportFormatTest {
 
     @Test
     public void shouldGenerateTextReportFromFileSummary() throws IOException {
-        List<FileSummary> fileSummaryList = Arrays.asList(
-                new FileSummary("File1.txt", new ProjectSummary(
-                        new SummaryReport(10, 10, 5, 10, "Project overall"),
-                        Arrays.asList(new SummaryReport(1,2,1,2,"pkg-abc"),
-                                new SummaryReport(1,2,1,2,"pkg-def")),
-                        Arrays.asList(new SummaryReport(1,2,1,2,"nsp-abc"),
-                                new SummaryReport(1,2,1,2,"nsp-def"))
-                )),
-                new FileSummary("File2.txt", new ProjectSummary(
-                        new SummaryReport(10, 20, 5, 10, "Project overall"),
-                        Arrays.asList(new SummaryReport(1,2,1,2,"pkg-abc"),
-                                new SummaryReport(1,2,1,2,"pkg-def")),
-                        Arrays.asList(new SummaryReport(1,2,1,2,"nsp-abc"),
-                                new SummaryReport(1,2,1,2,"nsp-def"))
-                ))
-        );
+        List<FileSummary> fileSummaryList = generateFileSummaries();
         List<String> reportLines = ReportFormat.text.create(fileSummaryList);
         List<String> expectedLines = new ArrayList<>();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("report-format/expectedTextFormat.txt")
@@ -55,4 +40,46 @@ public class ReportFormatTest {
         }
     }
 
+
+    @Test
+    public void shouldGenerateHtmlReportFromFileSummary() throws IOException {
+        List<FileSummary> fileSummaryList = generateFileSummaries();
+        List<String> reportLines = ReportFormat.html.create(fileSummaryList);
+        List<String> expectedLines = new ArrayList<>();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("report-format/expectedHtmlFormat.txt")
+        ) {
+            assert inputStream != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                 Stream<String> lines = bufferedReader.lines()){
+                lines.forEach(expectedLines::add);
+            }
+        }
+        assertEquals(reportLines.size(), expectedLines.size());
+        for (int i=0;i<reportLines.size();i++){
+            assertEquals(reportLines.get(i),
+                    expectedLines.get(i),
+                    String.format("Line %d does not match", i));
+        }
+    }
+
+    private List<FileSummary> generateFileSummaries() {
+        List<FileSummary> fileSummaryList = Arrays.asList(
+                new FileSummary("File1.txt", new ProjectSummary(
+                        new SummaryReport(10, 10, 5, 10, "Project overall"),
+                        Arrays.asList(new SummaryReport(1,2,1,2,"pkg-abc"),
+                                new SummaryReport(1,2,1,2,"pkg-def")),
+                        Arrays.asList(new SummaryReport(1,2,1,2,"nsp-abc"),
+                                new SummaryReport(1,2,1,2,"nsp-def"))
+                )),
+                new FileSummary("File2.txt", new ProjectSummary(
+                        new SummaryReport(10, 20, 5, 10, "Project overall"),
+                        Arrays.asList(new SummaryReport(1,2,1,2,"pkg-abc"),
+                                new SummaryReport(1,2,1,2,"pkg-def")),
+                        Arrays.asList(new SummaryReport(1,2,1,2,"nsp-abc"),
+                                new SummaryReport(1,2,1,2,"nsp-def"))
+                ))
+        );
+        return fileSummaryList;
+    }
 }
