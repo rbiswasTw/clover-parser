@@ -50,7 +50,7 @@ public class ReportGeneratorTest {
         reportGenerator.generateComprehensiveReport(workAreaDirectory.getName());
         File outputFile = new File(String.format("%s/%s", WORK_DIR, "output.txt"));
         assertTrue(outputFile.exists());
-        assertEquals(Files.readAllLines(outputFile.toPath()).size(), 14);
+        assertEquals(Files.readAllLines(outputFile.toPath()).size(), 18);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ReportGeneratorTest {
         reportGenerator.generateComprehensiveReport(workAreaDirectory.getName());
         File outputFile = new File(String.format("%s/%s", WORK_DIR, "output.txt"));
         assertTrue(outputFile.exists());
-        assertEquals(Files.readAllLines(outputFile.toPath()).size(), 12);
+        assertEquals(Files.readAllLines(outputFile.toPath()).size(), 18);
     }
 
     @AfterClass

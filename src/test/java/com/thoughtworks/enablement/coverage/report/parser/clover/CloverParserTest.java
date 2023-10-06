@@ -77,7 +77,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )) , Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -119,7 +119,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -140,7 +140,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -161,7 +161,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -182,7 +182,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
     @Test
@@ -203,7 +203,7 @@ public class CloverParserTest {
                         "document-confirmation.src.app"
                 )), Collections.EMPTY_LIST).getPackageReports();
 
-        summaryReportForRoles.forEach(SummaryReport::generateReport);
+        
     }
 
 

@@ -1,0 +1,18 @@
+------Report start for file::File1.txt---
+Repository coverage -> Branch coverage:200.00 % Statement coverage:100.00 %
+Coverage by packages
+pkg-abc Branch coverage:200.00 % Statement coverage:200.00 %
+pkg-def Branch coverage:200.00 % Statement coverage:200.00 %
+Coverages by namespaces
+nsp-abc Branch coverage:200.00 % Statement coverage:200.00 %
+nsp-def Branch coverage:200.00 % Statement coverage:200.00 %
+------Report end for file::File1.txt---
+------Report start for file::File2.txt---
+Repository coverage -> Branch coverage:200.00 % Statement coverage:200.00 %
+Coverage by packages
+pkg-abc Branch coverage:200.00 % Statement coverage:200.00 %
+pkg-def Branch coverage:200.00 % Statement coverage:200.00 %
+Coverages by namespaces
+nsp-abc Branch coverage:200.00 % Statement coverage:200.00 %
+nsp-def Branch coverage:200.00 % Statement coverage:200.00 %
+------Report end for file::File2.txt---

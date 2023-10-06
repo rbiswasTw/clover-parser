@@ -23,31 +23,6 @@ public class Project {
         return codePackages;
     }
 
-//    public ProjectSummary generateReportForPackages(List<String> packagePrefix){
-//
-//        List<SummaryReport> summaryReports = packagePrefix.stream().map(prefix -> {
-//            List<Metrics> metrices1 = codePackages
-//                    .stream()
-//                    .filter(codePackage -> codePackage.getName().startsWith(prefix)).map(CodePackage::getMetrics)
-//                    .collect(Collectors.toList());
-//            int statements1 = metrices1.stream().mapToInt(Metrics::getStatements).sum();
-//            int coveredStatements1 = metrices1.stream().mapToInt(Metrics::getCoveredStatements).sum();
-//            int conditions1 = metrices1.stream().mapToInt(Metrics::getConditionals).sum();
-//            int coveredConditions1 = metrices1.stream().mapToInt(Metrics::getCoveredConditionals).sum();
-//            return new SummaryReport(statements1, coveredStatements1, conditions1, coveredConditions1, String.format("Packages with prefix:%s",prefix));
-//        }).collect(Collectors.toList());
-//
-//        SummaryReport projectReport = new SummaryReport(this.metrics.getStatements(), this.metrics.getCoveredStatements(), this.metrics.getConditionals(), this.metrics.getCoveredConditionals(), "Repository overall");
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        summaryReports.forEach(summaryReport -> stringBuilder.append(String.format("Package::%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
-//        System.out.printf("Project coverage::Branch::%s Statements::%s\n%s%n", projectReport.getBranchCoveragePercent(), projectReport.getStatementCoveragePercent(), stringBuilder);
-//
-//        //noinspection unchecked
-//        return new ProjectSummary(projectReport, summaryReports, Collections.EMPTY_LIST);
-//
-//    }
-
 
     public ProjectSummary generateReport(List<String> packageNamePrefixes, List<String> classNamespacePrefixes){
 
@@ -70,7 +45,7 @@ public class Project {
                                 metricBuilder.incrementCoveredBranches(classMetric.getMetrics().getCoveredConditionals());
                             });
                     Metrics metrics = metricBuilder.build();
-                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), String.format("Namespace with prefix:%s",namespace));
+                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), namespace);
                 })
                 .collect(Collectors.toList());
 
@@ -87,15 +62,15 @@ public class Project {
                                 metricBuilder.incrementCoveredBranches(codePackage.getMetrics().getCoveredConditionals());
                             });
                     Metrics metrics = metricBuilder.build();
-                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), String.format("Packages with prefix:%s",packageName));
+                    return new SummaryReport(metrics.getStatements(), metrics.getCoveredStatements(), metrics.getConditionals(), metrics.getCoveredConditionals(), packageName);
                 })
                 .collect(Collectors.toList());
 
         SummaryReport projectReport = new SummaryReport(this.metrics.getStatements(), this.metrics.getCoveredStatements(), this.metrics.getConditionals(), this.metrics.getCoveredConditionals(), "Repository overall");
 
         StringBuilder stringBuilder = new StringBuilder();
-        namespaceReport.forEach(summaryReport -> stringBuilder.append(String.format("%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
-        packageReport.forEach(summaryReport -> stringBuilder.append(String.format("%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
+        namespaceReport.forEach(summaryReport -> stringBuilder.append(String.format("Namespace with prefix: %s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
+        packageReport.forEach(summaryReport -> stringBuilder.append(String.format("Packages with prefix:%s:: Branch::%s Statements::%s \n",summaryReport.getTopic(), summaryReport.getBranchCoveragePercent(), summaryReport.getStatementCoveragePercent())));
         System.out.printf("Project coverage::Branch::%s Statements::%s\n%s%n", projectReport.getBranchCoveragePercent(), projectReport.getStatementCoveragePercent(), stringBuilder);
 
 
