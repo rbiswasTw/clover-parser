@@ -13,7 +13,7 @@
     </fileSets>
     <files>
         <file>
-            <source>target/clover-parser.jar</source>
+            <source>target/coverage-parser.jar</source>
             <outputDirectory>/</outputDirectory>
         </file>
     </files>

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tbc.enablement</groupId>
-    <artifactId>clover-parser</artifactId>
+    <artifactId>coverage-parser</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -59,7 +59,7 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>clover-parser</finalName>
+                            <finalName>coverage-parser</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
