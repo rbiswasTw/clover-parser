@@ -32,23 +32,17 @@ public class ReportGenerator {
         @SuppressWarnings("unchecked") List<String> packagePatterns = configuration.containsKey("packagePrefixes") ? Arrays.stream(configuration.getProperty("packagePrefixes").split(",")).collect(Collectors.toList()) : Collections.EMPTY_LIST;
         @SuppressWarnings("unchecked") List<String> namespacePrefixes = configuration.containsKey("namespacePrefixes") ? Arrays.stream(configuration.getProperty("namespacePrefixes").split(",")).map(String::trim).collect(Collectors.toList()) : Collections.EMPTY_LIST;
         String coverageTool = configuration.getProperty("coverageTool");
-        List<String> projectSummaryReport = Arrays.stream(Objects.requireNonNull(
+
+        List<FileSummary> fileSummaries = Arrays.stream(Objects.requireNonNull(
                         file.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"))))
                 .map(file1 -> {
                     Coverage coverage = ParserDictionary.valueOf(coverageTool).generateCoverageReport(file1.toPath());
                     return new FileSummary(file1.getName(),
                             coverage.getProject().generateReport(packagePatterns, namespacePrefixes));
                 })
-                .map(fileSummary -> {
-                    List<String> reports = new LinkedList<>();
-                    reports.add(String.format("------Report start for file::%s---", fileSummary.getFileName()));
-                    reports.add(fileSummary.getProjectSummary().getProjectMetrics().generateReport());
-                    reports.addAll(fileSummary.getProjectSummary().getPackageReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
-                    reports.addAll(fileSummary.getProjectSummary().getNamespaceReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
-                    return reports;
-                })
-                .flatMap((Function<List<String>, Stream<String>>) Collection::stream)
                 .collect(Collectors.toList());
+
+        List<String> projectSummaryReport = formatReport(fileSummaries);
 
         File outputFile = new File(String.format("%s/%s", filesLocation, "output.txt"));
         if (outputFile.exists()) { //noinspection ResultOfMethodCallIgnored
@@ -61,6 +55,19 @@ public class ReportGenerator {
             printWriter.flush();
             fileWriter.flush();
         }
+    }
+
+    private List<String> formatReport(List<FileSummary> fileSummaries){
+        return fileSummaries.stream().map(fileSummary -> {
+                    List<String> reports = new LinkedList<>();
+                    reports.add(String.format("------Report start for file::%s---", fileSummary.getFileName()));
+                    reports.add(fileSummary.getProjectSummary().getProjectMetrics().generateReport());
+                    reports.addAll(fileSummary.getProjectSummary().getPackageReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
+                    reports.addAll(fileSummary.getProjectSummary().getNamespaceReports().stream().map(SummaryReport::generateReport).collect(Collectors.toList()));
+                    return reports;
+                })
+                .flatMap((Function<List<String>, Stream<String>>) Collection::stream)
+                .collect(Collectors.toList());
     }
 
 }
